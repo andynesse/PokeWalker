@@ -1,0 +1,7 @@
+# Build directories
+build/
+bin/
+
+# Local configuration and logs
+.build/
+*.log
