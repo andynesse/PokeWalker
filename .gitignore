@@ -5,3 +5,5 @@ bin/
 # Local configuration and logs
 .build/
 *.log
+
+.pio
