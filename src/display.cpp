@@ -18,11 +18,11 @@ void displayClear()
     display.clearDisplay();
 }
 
-void displayPrint(const char *text, int x, int y)
+void displayPrint(const char *text, int x, int y, int size)
 {
     display.setTextColor(SSD1306_WHITE);
     
-    display.setTextSize(1);
+    display.setTextSize(size);
     display.setCursor(x, y);
     display.println(text);
 

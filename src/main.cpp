@@ -69,7 +69,7 @@ static const unsigned long MIN_PEAK_DURATION_MS = 60;
 
 // A person cannot realistically take two steps
 // this close together.
-static const unsigned long MIN_STEP_INTERVAL_MS = 220;
+static const unsigned long MIN_STEP_INTERVAL_MS = 280;
 
 // If we don't see another valid step for this long,
 // reset the walking sequence.
@@ -308,7 +308,8 @@ void loop()
             displayPrint(
                 "MPU6050 not found",
                 0,
-                0
+                0,
+                1
             );
 
         }
@@ -317,7 +318,8 @@ void loop()
             displayPrint(
                 "Starting up...",
                 0,
-                0
+                0,
+                1
             );
 
         }
@@ -326,7 +328,8 @@ void loop()
             displayPrint(
                 String(steps).c_str(),
                 0,
-                0
+                16,
+                5
             );
         }
 

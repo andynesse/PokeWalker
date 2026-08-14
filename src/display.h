@@ -8,7 +8,7 @@ bool displayInit();
 
 void displayClear();
 
-void displayPrint(const char *text, int x, int y);
+void displayPrint(const char *text, int x, int y, int size);
 
 void displayShow();
 
