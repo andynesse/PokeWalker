@@ -1,8 +1,7 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
-struct SensorData
-{
+struct SensorData {
     float ax;
     float ay;
     float az;
@@ -14,16 +13,13 @@ struct SensorData
     float temperature;
 };
 
-extern float baselineMagnitude;
-
 bool sensorInit();
-
 bool sensorUpdate();
 
 SensorData getSensorData();
 
 float getMagnitude(float x, float y, float z);
 
-bool sensorIsCalibrated();
+const char *sensorDataToString(const SensorData &data);
 
 #endif
