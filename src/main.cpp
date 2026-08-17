@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "display.h"
 #include "sensor.h"
+#include "buttons.h"
 #include <Wire.h>
 #include <math.h>
 
@@ -227,6 +228,8 @@ void setup()
 
     Wire.begin(8, 9);
 
+    buttonsInit();
+
     if (!displayInit()) {
         while (true) {
             delay(100);
@@ -252,6 +255,8 @@ void setup()
         );
         gravityCalibrated = true;
     }
+
+
 }
 
 
@@ -263,6 +268,33 @@ void loop()
 {
     unsigned long now = millis();
 
+    // --------------------------------------------------
+    // Button update
+    // --------------------------------------------------
+
+    buttonsUpdate(now);
+
+    ButtonEvent event;
+
+    while (buttonsGetEvent(event)) {
+        switch (event.button)
+        {
+        case BUTTON_RED:
+            
+            break;
+        
+        case BUTTON_BLACK:
+            
+            break;
+        
+        case BUTTON_BLUE:
+            
+            break;
+
+        default:
+            break;
+        }
+    }
 
     // --------------------------------------------------
     // Sensor update
@@ -284,11 +316,11 @@ void loop()
                 now
             );
 
-            Serial.printf(
+            /*Serial.printf(
                 "Motion: %.2f | Steps: %d\n",
                 motion,
                 steps
-            );
+            );*/
         }
     }
 
@@ -329,10 +361,11 @@ void loop()
                 String(steps).c_str(),
                 0,
                 16,
-                5
+                3
             );
+            
         }
-
+        
         displayShow();
     }
 }
