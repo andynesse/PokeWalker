@@ -7,3 +7,5 @@ bin/
 *.log
 
 .pio
+
+.vscode/
