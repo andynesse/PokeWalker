@@ -15,6 +15,7 @@ struct SensorData {
 
 bool sensorInit();
 bool sensorUpdate();
+bool sensorIsReady();
 
 SensorData getSensorData();
 

@@ -87,6 +87,11 @@ bool sensorUpdate()
     return true;
 }
 
+bool sensorIsReady()
+{
+    return sensorReady;
+}
+
 SensorData getSensorData()
 {
     return data;
