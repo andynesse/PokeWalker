@@ -11,7 +11,6 @@ enum class ScreenMode
 
 enum class MenuMode
 {
-    NONE,
     MAIN_MENU,
     SETTINGS,
 };
@@ -19,7 +18,7 @@ enum class MenuMode
 struct UIState
 {
     ScreenMode screenMode = ScreenMode::STARTUP;
-    MenuMode menuMode = MenuMode::NONE;
+    MenuMode menuMode = MenuMode::MAIN_MENU;
 
     uint32_t selectedId = 0;
 };

@@ -9,4 +9,14 @@ namespace GameButtonEventHandler
         const GameButtonEvent& event,
         GameState& state
     );
+
+    void menuHandle(
+        const GameButtonEvent& event,
+        GameState& state
+    );
+
+    void mainHandle(
+        const GameButtonEvent& event,
+        GameState& state
+    );
 }
