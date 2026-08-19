@@ -40,8 +40,8 @@ void Application::update(unsigned long now)
 
     game.update(now);
 
-    if (now - lastDisplayUpdateMs >= DISPLAY_UPDATE_INTERVAL_MS) {
+    if (now - lastDisplayUpdateMs >= DISPLAY_UPDATE_INTERVAL_MS && sensorIsReady()) {
         lastDisplayUpdateMs = now;
-        renderer.render(game.getState(), sensorIsReady());
+        renderer.render(game.getGameState());
     }
 }

@@ -5,5 +5,10 @@
 class GameRenderer
 {
 public:
-    void render(const GameState &state, bool sensorReady);
+    void render(const GameState &state);
+
+    void print(const char *text, int x, int y, int size);
+
+    void homeRender(const GameState &state);
+    void menuRender(const GameState &state);
 };

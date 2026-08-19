@@ -10,9 +10,12 @@ public:
     void update(unsigned long now);
     void handleEvent(const GameEvent &event);
 
-    const GameState &getState() const;
+    void stepIncrement();
+    
+
+    const GameState &getGameState() const ; 
 
 private:
-    GameState state;
+    GameState gameState;
     unsigned long startTime = 0;
 };

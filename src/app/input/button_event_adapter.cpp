@@ -4,30 +4,33 @@
 
 namespace
 {
-    GameButton toGameButton(ButtonId button)
+    ButtonColor toGameButton(ButtonId button)
     {
         switch (button) {
         case BUTTON_BLACK:
-            return GameButton::BLACK;
+            return ButtonColor::BLACK;
         case BUTTON_BLUE:
-            return GameButton::BLUE;
+            return ButtonColor::BLUE;
         case BUTTON_RED:
         default:
-            return GameButton::RED;
+            return ButtonColor::RED;
         }
     }
 
-    bool toGameEventType(ButtonEventType buttonType, GameEventType &gameType)
+    bool toButtonPressType(
+        ButtonEventType buttonType,
+        ButtonPressType &pressType
+    )
     {
         switch (buttonType) {
         case BUTTON_EVENT_SHORT_PRESS:
-            gameType = GameEventType::BUTTON_SHORT_PRESS;
+            pressType = ButtonPressType::BUTTON_SHORT_PRESS;
             return true;
         case BUTTON_EVENT_LONG_PRESS:
-            gameType = GameEventType::BUTTON_LONG_PRESS;
+            pressType = ButtonPressType::BUTTON_LONG_PRESS;
             return true;
         case BUTTON_EVENT_RELEASE:
-            gameType = GameEventType::BUTTON_RELEASE;
+            pressType = ButtonPressType::BUTTON_RELEASE;
             return true;
         case BUTTON_EVENT_NONE:
         case BUTTON_EVENT_HELD:
@@ -46,12 +49,11 @@ void ButtonEventAdapter::update()
 {
     ButtonEvent buttonEvent;
     while (buttonsGetEvent(buttonEvent)) {
-        GameEventType eventType;
-        if (toGameEventType(buttonEvent.type, eventType)) {
-            eventBus.publish({
-                eventType,
+        ButtonPressType pressType;
+        if (toButtonPressType(buttonEvent.type, pressType)) {
+            eventBus.publish(GameButtonEvent{
                 toGameButton(buttonEvent.button),
-                0
+                pressType
             });
         }
     }

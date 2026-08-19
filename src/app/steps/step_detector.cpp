@@ -1,5 +1,4 @@
 #include "step_detector.h"
-
 #include <math.h>
 
 namespace
@@ -86,11 +85,7 @@ void StepDetector::update(const SensorData &data, unsigned long now)
             now - peakStartTime >= MIN_PEAK_DURATION_MS) {
             if (peakValue >= STEP_THRESHOLD &&
                 (lastStepTime == 0 || now - lastStepTime >= MIN_STEP_INTERVAL_MS)) {
-                eventBus.publish({
-                    GameEventType::STEP_DETECTED,
-                    GameButton::RED,
-                    1
-                });
+                eventBus.publish(GameStepEvent{now});
                 lastStepTime = now;
             }
 

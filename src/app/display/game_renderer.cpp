@@ -2,25 +2,33 @@
 
 #include "../../hardware/display.h"
 
-#include <Arduino.h>
-
-void GameRenderer::render(const GameState &state, bool sensorReady)
+void GameRenderer::render(const GameState &state)
 {
     displayClear();
 
-    if (!sensorReady) {
-        displayPrint("MPU6050 not found", 0, 0, 1);
-    }
-    else if (state.mode == GameMode::STARTUP) {
-        displayPrint("Starting up...", 0, 0, 1);
-    }
-    else if (state.mode == GameMode::MENU) {
-        displayPrint("Menu", 0, 0, 2);
-        displayPrint("Black: close", 0, 24, 1);
-    }
-    else {
-        displayPrint(String(state.totalSteps).c_str(), 0, 16, 3);
+    switch (state.ui.screenMode) {
+        case ScreenMode::STARTUP:
+            GameRenderer::print("Starting up...", 0, 0, 1);
+            break;
+
+        case ScreenMode::MAIN:
+            GameRenderer::print("Main screen", 0, 0, 2);
+            GameRenderer::print("Black: menu", 0, 24, 1);
+            break;
+
+        case ScreenMode::MENU:
+            GameRenderer::menuRender(state);
+            break;
+        
+        default:
+            GameRenderer::print("Unknown screen mode", 0, 0, 1);
+            break;
     }
 
     displayShow();
+}
+
+void GameRenderer::print(const char *text, int x, int y, int size)
+{
+    displayPrint(text, x, y, size);
 }
