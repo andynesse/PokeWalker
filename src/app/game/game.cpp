@@ -1,4 +1,6 @@
 #include "game.h"
+#include "game_button_event_handler.h"
+#include "game_step_event_handler.h"
 
 #include <variant>
 
@@ -25,28 +27,17 @@ void Game::update(unsigned long now)
 
 void Game::handleEvent(const GameEvent &event)
 {
-    if (std::holds_alternative<GameStepEvent>(event)) {
-        stepIncrement();
-        return;
+    if (std::holds_alternative<GameButtonEvent>(event))
+    {
+        const GameButtonEvent &buttonEvent = std::get<GameButtonEvent>(event);
+        
+        GameButtonEventHandler::handle(buttonEvent, gameState);
     }
-
-    if (gameState.ui.screenMode == ScreenMode::STARTUP) {
-        return;
+    else if (std::holds_alternative<GameStepEvent>(event))
+    {
+        const GameStepEvent &stepEvent = std::get<GameStepEvent>(event);
+        GameStepEventHandler::handle(stepEvent, gameState);
     }
-
-    const GameButtonEvent &buttonEvent = std::get<GameButtonEvent>(event);
-    if (buttonEvent.pressType == ButtonPressType::BUTTON_SHORT_PRESS &&
-        buttonEvent.button == ButtonColor::BLACK) {
-        gameState.ui.screenMode = gameState.ui.screenMode == ScreenMode::MENU
-            ? ScreenMode::MAIN
-            : ScreenMode::MENU;
-    }
-}
-
-void Game::stepIncrement()
-{
-    gameState.totalSteps++;
-    gameState.stepsToday++;
 }
 
 
